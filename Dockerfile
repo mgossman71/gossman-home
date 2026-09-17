@@ -1,6 +1,6 @@
 # Static homepage served by nginx.
 # The site is a single self-contained index.html, so no build step is needed.
-FROM nginx:alpine
+FROM nginx:1.26-alpine
 
 # Copy the site into nginx's default web root.
 COPY index.html /usr/share/nginx/html/index.html

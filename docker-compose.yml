@@ -3,8 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: webrouter:latest
-    container_name: webrouter
+    image: gossman-home:latest
+    container_name: gossman-home
     ports:
       - "3000:80"
     restart: unless-stopped

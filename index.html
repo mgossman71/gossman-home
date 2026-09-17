@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>gossman.cloud — Products</title>
+<script>document.documentElement.classList.add("js");</script>
 <meta name="description" content="Things I've made for the internet — a few projects running on gossman.cloud." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0f1e'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23a855f7' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%2322d3ee'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,16 +49,13 @@
   .skip { position: absolute; left: -9999px; top: 0; z-index: 100; background: var(--violet); color: #fff; padding: 12px 16px; }
   .skip:focus { left: 8px; top: 8px; }
 
-  .nav { position: sticky; top: 0; z-index: 30; background: rgba(8,11,20,0.55); backdrop-filter: blur(14px) saturate(140%); border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .nav { position: sticky; top: 0; z-index: 30; background: rgba(8,11,20,0.55); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); border-bottom: 1px solid rgba(255,255,255,0.08); }
   .nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 68px; }
   .brand { display: inline-flex; align-items: center; gap: 11px; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
   .brand .logo { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: var(--grad); box-shadow: 0 6px 20px -6px rgba(168,85,247,0.8); color: #fff; font-weight: 700; font-size: 17px; }
   .brand .dot { color: var(--muted); }
   .nav__links { display: flex; align-items: center; gap: 6px; }
-  .nav__link { font-size: 14px; color: var(--muted); padding: 9px 14px; border-radius: 10px; transition: color .15s, background .15s; }
-  .nav__link:hover { color: var(--text); background: rgba(255,255,255,0.06); }
   .nav__links .btn { margin-left: 6px; }
-  @media (max-width: 760px) { .nav__links .nav__link { display: none; } }
 
   .btn {
     display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-sans);
@@ -68,16 +66,13 @@
   .btn:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
   .btn--primary { color: #fff; background: var(--grad); box-shadow: 0 10px 30px -10px rgba(99,102,241,0.8); }
   .btn--primary:hover { filter: brightness(1.12); transform: translateY(-1px); box-shadow: 0 16px 44px -10px rgba(99,102,241,0.95); }
-  .btn--ghost { color: var(--text); background: rgba(255,255,255,0.05); border-color: var(--border); backdrop-filter: blur(8px); }
+  .btn--ghost { color: var(--text); background: rgba(255,255,255,0.05); border-color: var(--border); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
   .btn--ghost:hover { background: rgba(255,255,255,0.1); transform: translateY(-1px); }
   .hero { padding: 96px 0 72px; }
   .hero__grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
   .hero h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 7vw, 74px); line-height: 1.02; letter-spacing: -0.03em; margin: 0 0 22px; }
   .lede { font-size: 18px; color: var(--muted); max-width: 46ch; margin: 0 0 34px; }
   .hero__actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-  .hero__meta { margin-top: 28px; display: flex; gap: 20px; flex-wrap: wrap; color: var(--muted); font-size: 13.5px; }
-  .hero__meta span { display: inline-flex; align-items: center; gap: 8px; }
-  .hero__meta .live { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 10px #34d399; }
   .hero__visual { display: grid; place-items: center; }
 
   .orb-wrap { position: relative; width: 320px; height: 320px; display: grid; place-items: center; }
@@ -112,7 +107,7 @@
   .card {
     position: relative; display: flex; flex-direction: column; padding: 28px; border-radius: 18px; overflow: hidden;
     background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02));
-    border: 1px solid var(--border); backdrop-filter: blur(16px); transform-style: preserve-3d;
+    border: 1px solid var(--border); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); transform-style: preserve-3d;
     transition: transform .18s ease, box-shadow .25s ease, border-color .2s ease; will-change: transform;
   }
   .card::before {
@@ -147,12 +142,16 @@
   .footer .links a:hover { color: var(--text); }
   .footer__note { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13.5px; }
 
-  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1); }
-  .reveal.in { opacity: 1; transform: none; }
+  /* Hidden state only applies when JS is available (head script adds html.js),
+     so content stays visible if scripting is disabled or blocked. */
+  .reveal { transition: opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1); }
+  html.js .reveal { opacity: 0; transform: translateY(18px); }
+  html.js .reveal.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .orb { animation: none; }
-    .reveal { opacity: 1; transform: none; transition: none; }
+    .reveal { transition: none; }
+    html.js .reveal { opacity: 1; transform: none; }
   }
 </style>
 </head>
@@ -304,6 +303,7 @@
         z: Math.random() * 0.9 + 0.1, r: (Math.random() * 1.4 + 0.3) * dpr,
         p: Math.random() * Math.PI * 2, s: Math.random() * 0.02 + 0.005
       }));
+      if (reduce) frame(); // static mode: repaint after resize (setting canvas size clears it)
     }
     function frame() {
       ctx.clearRect(0, 0, w, h);
@@ -315,7 +315,7 @@
         const y = ((st.y + ty * 10 * st.z * dpr) % h + h) % h;
         ctx.beginPath();
         ctx.arc(x, y, st.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${200 + st.z * 40|0}, ${210 + st.z * 20|0}, 255, ${0.15 + tw * 0.6 * st.z})`;
+        ctx.fillStyle = `rgba(${Math.round(200 + st.z * 40)}, ${Math.round(210 + st.z * 20)}, 255, ${0.15 + tw * 0.6 * st.z})`;
         ctx.fill();
       }
       if (!reduce) requestAnimationFrame(frame);

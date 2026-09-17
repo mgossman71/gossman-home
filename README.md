@@ -12,7 +12,7 @@ docker compose up -d --build
 ## Files
 
 - `index.html` — the whole page (markup, styles, script)
-- `nginx.conf` — reverse-proxy config that maps each subdomain to its origin
+- `nginx.conf` — minimal nginx config: gzip, `no-cache` on the document, security headers
 - `Dockerfile`, `docker-compose.yml` — containerized serving
 
 Built with AI.
