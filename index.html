@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>gossman.cloud — Products</title>
+<meta name="description" content="Things I've made for the internet — a few projects running on gossman.cloud." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0f1e'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23a855f7' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%2322d3ee'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #05070d;
+    --border: rgba(255,255,255,0.12);
+    --text: #f5f7ff;
+    --muted: #aeb4c8;
+    --blue: #4f8cff;
+    --violet: #a855f7;
+    --cyan: #22d3ee;
+    --grad: linear-gradient(120deg, var(--blue), var(--violet), var(--cyan));
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-display: "Space Grotesk", var(--font-sans);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; font-family: var(--font-sans); color: var(--text); line-height: 1.5;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    min-height: 100vh; overflow-x: hidden; position: relative;
+    background:
+      radial-gradient(1000px circle at 12% -12%, rgba(79,140,255,0.20), transparent 45%),
+      radial-gradient(900px circle at 105% -5%, rgba(168,85,247,0.18), transparent 45%),
+      radial-gradient(900px circle at 55% 120%, rgba(34,211,238,0.16), transparent 55%),
+      var(--bg);
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: var(--font-display); letter-spacing: 0.02em; }
+  #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .layer { position: relative; z-index: 1; }
+  .grad-text {
+    background: var(--grad); -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+  }
+  .eyebrow { font-family: var(--font-display); font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 18px; color: var(--cyan); opacity: 0.9; }
+  .skip { position: absolute; left: -9999px; top: 0; z-index: 100; background: var(--violet); color: #fff; padding: 12px 16px; }
+  .skip:focus { left: 8px; top: 8px; }
+
+  .nav { position: sticky; top: 0; z-index: 30; background: rgba(8,11,20,0.55); backdrop-filter: blur(14px) saturate(140%); border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 68px; }
+  .brand { display: inline-flex; align-items: center; gap: 11px; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+  .brand .logo { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: var(--grad); box-shadow: 0 6px 20px -6px rgba(168,85,247,0.8); color: #fff; font-weight: 700; font-size: 17px; }
+  .brand .dot { color: var(--muted); }
+  .nav__links { display: flex; align-items: center; gap: 6px; }
+  .nav__link { font-size: 14px; color: var(--muted); padding: 9px 14px; border-radius: 10px; transition: color .15s, background .15s; }
+  .nav__link:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+  .nav__links .btn { margin-left: 6px; }
+  @media (max-width: 760px) { .nav__links .nav__link { display: none; } }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-sans);
+    font-size: 14.5px; font-weight: 600; padding: 14px 22px; border-radius: 12px;
+    border: 1px solid transparent; cursor: pointer;
+    transition: transform .12s, box-shadow .2s, filter .2s, background .15s; -webkit-tap-highlight-color: transparent;
+  }
+  .btn:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+  .btn--primary { color: #fff; background: var(--grad); box-shadow: 0 10px 30px -10px rgba(99,102,241,0.8); }
+  .btn--primary:hover { filter: brightness(1.12); transform: translateY(-1px); box-shadow: 0 16px 44px -10px rgba(99,102,241,0.95); }
+  .btn--ghost { color: var(--text); background: rgba(255,255,255,0.05); border-color: var(--border); backdrop-filter: blur(8px); }
+  .btn--ghost:hover { background: rgba(255,255,255,0.1); transform: translateY(-1px); }
+  .hero { padding: 96px 0 72px; }
+  .hero__grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
+  .hero h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 7vw, 74px); line-height: 1.02; letter-spacing: -0.03em; margin: 0 0 22px; }
+  .lede { font-size: 18px; color: var(--muted); max-width: 46ch; margin: 0 0 34px; }
+  .hero__actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .hero__meta { margin-top: 28px; display: flex; gap: 20px; flex-wrap: wrap; color: var(--muted); font-size: 13.5px; }
+  .hero__meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero__meta .live { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 10px #34d399; }
+  .hero__visual { display: grid; place-items: center; }
+
+  .orb-wrap { position: relative; width: 320px; height: 320px; display: grid; place-items: center; }
+  .orb-wrap .glow { position: absolute; width: 240px; height: 240px; border-radius: 50%; background: var(--grad); filter: blur(60px); opacity: 0.45; }
+  .orb {
+    position: relative; width: 250px; height: 250px; border-radius: 50%;
+    background: conic-gradient(from 90deg, var(--blue), var(--violet), var(--cyan), var(--blue));
+    -webkit-mask: radial-gradient(closest-side, transparent 58%, #000 59%);
+    mask: radial-gradient(closest-side, transparent 58%, #000 59%);
+    animation: spin 16s linear infinite;
+  }
+  .orb::after {
+    content: ""; position: absolute; inset: 22%; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.5), rgba(79,140,255,0.25) 45%, transparent 72%);
+    filter: blur(4px);
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (max-width: 880px) {
+    .hero { padding: 64px 0 52px; }
+    .hero__grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero__visual { order: -1; }
+    .orb-wrap { width: 260px; height: 260px; }
+    .orb { width: 200px; height: 200px; }
+  }
+  .section { padding: 72px 0; }
+  .section__head { margin-bottom: 36px; max-width: 60ch; }
+  .section h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 5vw, 48px); line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 12px; }
+  .section__sub { color: var(--muted); font-size: 17px; margin: 0; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+
+  .card {
+    position: relative; display: flex; flex-direction: column; padding: 28px; border-radius: 18px; overflow: hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02));
+    border: 1px solid var(--border); backdrop-filter: blur(16px); transform-style: preserve-3d;
+    transition: transform .18s ease, box-shadow .25s ease, border-color .2s ease; will-change: transform;
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: var(--grad);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0.3; transition: opacity .2s ease; pointer-events: none;
+  }
+  .card::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(120,140,255,0.16), transparent 60%);
+    opacity: 0; transition: opacity .2s ease;
+  }
+  .card:hover, .card:focus-visible { border-color: rgba(255,255,255,0.2); box-shadow: 0 24px 70px -24px rgba(79,140,255,0.55), 0 0 40px -14px rgba(168,85,247,0.5); }
+  .card:hover::before { opacity: 0.9; }
+  .card:hover::after { opacity: 1; }
+  .card:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+  .card__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  .card__cat { font-family: var(--font-display); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .card__icon { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; color: #eaf1ff;
+    background: linear-gradient(135deg, rgba(79,140,255,0.28), rgba(168,85,247,0.28)); border: 1px solid rgba(255,255,255,0.14); }
+  .card__icon svg { width: 20px; height: 20px; }
+  .card__title { font-family: var(--font-display); font-size: 24px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 10px; }
+  .card__desc { font-size: 15px; color: var(--muted); margin: 0 0 26px; line-height: 1.6; }
+  .card__foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .card__domain { font-size: 12.5px; color: var(--muted); }
+  .card__link { font-family: var(--font-display); font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+
+  .footer { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 24px; }
+  .footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 34px 0; flex-wrap: wrap; }
+  .footer .links { display: flex; gap: 18px; flex-wrap: wrap; }
+  .footer .links a { color: var(--muted); font-size: 14px; }
+  .footer .links a:hover { color: var(--text); }
+  .footer__note { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13.5px; }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .orb { animation: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="layer">
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="nav">
+      <div class="container nav__inner">
+        <a class="brand" href="#top" aria-label="gossman.cloud home">
+          <span class="logo" aria-hidden="true">g</span>
+          <span>gossman<span class="dot">.cloud</span></span>
+        </a>
+        <nav class="nav__links" aria-label="Primary">
+          <a class="btn btn--ghost" href="mailto:hello@gossman.cloud">say hi <span aria-hidden="true">→</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="container hero__grid">
+          <div class="hero__copy reveal">
+            <p class="eyebrow">hello, internet 👋</p>
+            <h1>Things I've <span class="grad-text">made</span> for the internet.</h1>
+            <p class="lede">Built with AI, parked on the internet, and left running. Go poke around.</p>
+            <div class="hero__actions">
+              <a class="btn btn--primary" href="#products">see what's here <span aria-hidden="true">→</span></a>
+              <a class="btn btn--ghost" href="mailto:hello@gossman.cloud">say hi</a>
+            </div>
+          </div>
+          <div class="hero__visual reveal" aria-hidden="true">
+            <div class="orb-wrap">
+              <div class="glow"></div>
+              <div class="orb"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section products" id="products">
+        <div class="container">
+          <div class="section__head reveal">
+            <h2>Here's what's running.</h2>
+            <p class="section__sub">A couple of things living on this domain. Click one.</p>
+          </div>
+          <div class="grid" id="grid"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="contact">
+      <div class="container footer__inner">
+        <div class="footer__note">© <span id="year"></span> gossman.cloud · made with AI <span aria-hidden="true">⚡</span></div>
+        <div class="links" id="footer-products"></div>
+      </div>
+    </footer>
+  </div><!-- /.layer -->
+<script>
+  // ============================================================
+  //  SITES — add a new object to list another product.
+  //  name · url · category · icon · desc    (icons: globe | clock | box)
+  // ============================================================
+  const SITES = [
+    {
+      name: "Earth",
+      url: "https://earth.gossman.cloud",
+      category: "3D · WebGL",
+      icon: "globe",
+      desc: "An interactive, real-time 3D Earth and solar-system explorer with day/night lighting, moons, and real-scale orbits."
+    },
+    {
+      name: "The Internet Through Time",
+      url: "https://internethistory.gossman.cloud",
+      category: "Data · Timeline",
+      icon: "clock",
+      desc: "A visual, chronological tour of the internet's history and how the web has evolved over the decades."
+    }
+  ];
+
+  const ICONS = {
+    globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>',
+    clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    box:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3 3 7.5v9L12 21l9-4.5v-9L12 3z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></svg>'
+  };
+
+  const grid = document.getElementById("grid");
+  const fp   = document.getElementById("footer-products");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const domainOf = u => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return u; } };
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const icon = n => ICONS[n] || ICONS.box;
+
+  function liveCard(s) {
+    return `
+      <a class="card" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">
+        <div class="card__top">
+          <span class="card__cat">${esc(s.category || "Product")}</span>
+          <span class="card__icon" aria-hidden="true">${icon(s.icon)}</span>
+        </div>
+        <h3 class="card__title">${esc(s.name)}</h3>
+        <p class="card__desc">${esc(s.desc || "")}</p>
+        <div class="card__foot">
+          <span class="card__domain mono">${esc(domainOf(s.url))}</span>
+          <span class="card__link grad-text">launch <span aria-hidden="true">↗</span></span>
+        </div>
+      </a>`;
+  }
+
+  function render() {
+    grid.innerHTML = SITES.map(liveCard).join("");
+    fp.innerHTML = SITES.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a>`).join("");
+    document.getElementById("year").textContent = new Date().getFullYear();
+  }
+
+  // ---- 3D tilt + cursor glare ----
+  function initTilt() {
+    if (reduce || !window.matchMedia("(hover: hover)").matches) return;
+    const max = 7;
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("pointermove", e => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        card.style.setProperty("--mx", (px * 100) + "%");
+        card.style.setProperty("--my", (py * 100) + "%");
+        card.style.transform = `perspective(900px) rotateX(${(0.5 - py) * max}deg) rotateY(${(px - 0.5) * max}deg) translateY(-2px)`;
+      });
+      card.addEventListener("pointerleave", () => { card.style.transform = ""; });
+    });
+  }
+
+  // ---- Starfield ----
+  function initStars() {
+    const c = document.getElementById("stars");
+    if (!c) return;
+    const ctx = c.getContext("2d");
+    let w, h, stars, dpr, mx = 0, my = 0, tx = 0, ty = 0;
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = c.width = Math.floor(innerWidth * dpr);
+      h = c.height = Math.floor(innerHeight * dpr);
+      c.style.width = innerWidth + "px";
+      c.style.height = innerHeight + "px";
+      const count = Math.round((innerWidth * innerHeight) / 9000);
+      stars = Array.from({ length: count }, () => ({
+        x: Math.random() * w, y: Math.random() * h,
+        z: Math.random() * 0.9 + 0.1, r: (Math.random() * 1.4 + 0.3) * dpr,
+        p: Math.random() * Math.PI * 2, s: Math.random() * 0.02 + 0.005
+      }));
+    }
+    function frame() {
+      ctx.clearRect(0, 0, w, h);
+      tx += (mx - tx) * 0.05; ty += (my - ty) * 0.05;
+      for (const st of stars) {
+        st.p += st.s;
+        const tw = 0.55 + Math.sin(st.p) * 0.45;
+        const x = ((st.x + tx * 10 * st.z * dpr) % w + w) % w;
+        const y = ((st.y + ty * 10 * st.z * dpr) % h + h) % h;
+        ctx.beginPath();
+        ctx.arc(x, y, st.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${200 + st.z * 40|0}, ${210 + st.z * 20|0}, 255, ${0.15 + tw * 0.6 * st.z})`;
+        ctx.fill();
+      }
+      if (!reduce) requestAnimationFrame(frame);
+    }
+    resize();
+    addEventListener("resize", resize);
+    addEventListener("pointermove", e => {
+      mx = (e.clientX / innerWidth - 0.5) * 2;
+      my = (e.clientY / innerHeight - 0.5) * 2;
+    }, { passive: true });
+    frame();
+  }
+
+  // ---- Reveal on scroll ----
+  function initReveal() {
+    const els = document.querySelectorAll(".reveal");
+    if (reduce || !("IntersectionObserver" in window)) { els.forEach(e => e.classList.add("in")); return; }
+    const io = new IntersectionObserver(es => es.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+    }), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    els.forEach(e => io.observe(e));
+  }
+
+  render();
+  initTilt();
+  initStars();
+  initReveal();
+</script>
+</body>
+</html>

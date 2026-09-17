@@ -1,0 +1,10 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: webrouter:latest
+    container_name: webrouter
+    ports:
+      - "3000:80"
+    restart: unless-stopped
